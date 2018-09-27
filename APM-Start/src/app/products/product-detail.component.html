@@ -1,7 +1,24 @@
 <div class='card'>
 <div class='card-header'*ngIf = 'product'>
-  {{pageTitle + ': ' + product.productName}}
+  {{pageTitle + ' : ' + product.productName}}
 </div>
+<div class="card-body" class="row" *ngFor='let product of products'>
+  <ul class="list-group" class="col-mid-6" *ngIf='+product.productId == productId'>
+    <li class="list-group-item">Product Id: {{ productId }}</li>
+    <li class="list-group-item">Product Name: {{ product.productName }}</li>
+    <li class="list-group-item">Product Code: {{ product.productCode }} </li>
+    <li class="list-group-item">Product release date: {{ product.releaseDate }}</li>
+    <li class="list-group-item">Price: {{ product.price | currency: 'USD' : 'symbol' : '1.2-2'}}</li>
+    <li class="list-group-item">Rating:<pm-star [rating]='product.starRating' (ratingClicked) ='onRatingClicked($event)'></pm-star></li>
+  </ul>
+  <img class="col-mid-6"
+        *ngIf='+product.productId == productId'
+        [src]='product.imageUrl'
+        [title]='product.productName'
+        [style.margin.left]='300'
+        >
+</div>
+
 <div class='card-footer'>
   <button class='btn btn-outline-secondary'
       (click) = 'onBack()'
